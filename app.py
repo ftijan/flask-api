@@ -17,6 +17,11 @@ INSERT_TEMP = (
     "INSERT INTO temperatures (room_id, temperature, date) VALUES (%s, %s, %s);"
 )
 
+GLOBAL_NUMBER_OF_DAYS = (
+    """SELECT COUNT(DISTINCT DATE(date)) AS days FROM temperatures;"""
+)
+GLOBAL_AVG = """SELECT AVG(temperature) as average FROM temperatures;"""
+
 load_dotenv() # load .env vars
 
 app = Flask(__name__)
@@ -48,3 +53,14 @@ def add_temp():
             cursor.execute(CREATE_TEMPS_TABLE)
             cursor.execute(INSERT_TEMP, (room_id, temperature, date))
     return {"message": "Temperature added."}, 201
+
+@app.get("/api/average")
+def get_global_avg():
+    with connection:
+        with connection.cursor() as cursor:
+            cursor.execute(GLOBAL_AVG)
+            average = cursor.fetchone()[0]
+            cursor.execute(GLOBAL_NUMBER_OF_DAYS)
+            days = cursor.fetchone()[0]
+    return {"average": round(average, 2), "days": days}
+        
