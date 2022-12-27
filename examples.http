@@ -3,3 +3,22 @@ GET http://127.0.0.1:5000/ HTTP/1.1
 Content-Type: application/json
 
 ###
+
+POST http://127.0.0.1:5000/api/room HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "room1"
+}
+
+###
+
+POST http://127.0.0.1:5000/api/temperature HTTP/1.1
+Content-Type: application/json
+
+{
+    "room": "1",
+    "temperature": "23"
+}
+
+###
