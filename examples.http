@@ -1,10 +1,16 @@
 # Uses VS Code 'REST Client' extension. More info: https://github.com/Huachao/vscode-restclient
-GET http://127.0.0.1:5000/ HTTP/1.1
+@hostname = 127.0.0.1
+@port = 5000
+@host = {{hostname}}:{{port}}
+
+###
+
+GET http://{{host}}/ HTTP/1.1
 Content-Type: application/json
 
 ###
 
-POST http://127.0.0.1:5000/api/room HTTP/1.1
+POST http://{{host}}/api/room HTTP/1.1
 Content-Type: application/json
 
 {
@@ -13,7 +19,7 @@ Content-Type: application/json
 
 ###
 
-POST http://127.0.0.1:5000/api/temperature HTTP/1.1
+POST http://{{host}}/api/temperature HTTP/1.1
 Content-Type: application/json
 
 {
@@ -23,7 +29,22 @@ Content-Type: application/json
 
 ###
 
-GET http://127.0.0.1:5000/api/average HTTP/1.1
+GET http://{{host}}/api/average HTTP/1.1
+Content-Type: application/json
+
+###
+
+GET http://{{host}}/api/room/1 HTTP/1.1
+Content-Type: application/json
+
+###
+
+GET http://{{host}}/api/room/1?term=week HTTP/1.1
+Content-Type: application/json
+
+###
+
+GET http://{{host}}/api/room/1?term=month HTTP/1.1
 Content-Type: application/json
 
 ###
